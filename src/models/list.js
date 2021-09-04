@@ -1,17 +1,27 @@
-export const count = {
-    state: 0, // initial state
-    reducers: {
-    // handle state changes with pure functions
-        increment(state, payload) {
-            return state + payload;
-        },
+import api from '../api';
+
+/**
+ * Модель списка, реализован функционал загрузки и записи списка в стор
+ * @type {{effects: (function(*): {loadList(*, *): Promise<void>}), reducers: {setList(*, *=): *&{list: *}}, state: {list: *[]}}}
+ */
+export const list = {
+  state: {
+    list: [],
+  }, // initial state
+  reducers: {
+    setList(state, payload) {
+      return {
+        ...state,
+        list: payload,
+      };
     },
-    effects: (dispatch) => ({
-        // handle state changes with impure functions.
-        // use async/await for async actions
-        async incrementAsync(payload, rootState) {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            dispatch.count.increment(payload);
-        },
-    }),
+  },
+  effects: dispatch => ({
+    // handle state changes with impure functions.
+    // use async/await for async actions
+    async loadList(payload, rootState) {
+      const loadedList = await api.getList();
+      this.setList(loadedList.data);
+    },
+  }),
 };
