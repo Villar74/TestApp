@@ -8,6 +8,7 @@
 
 Обновление списка реализовано по времени или по действию пользователя.
 
+Собственные компоненты не создавались, поскольку были использованы стандартные из react-native-paper
 
 API:
 https://docs.github.com/en/rest/reference/activity#list-public-events
