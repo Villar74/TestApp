@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
 
 import {FlatList, View} from 'react-native';
-import connect from 'react-redux/lib/connect/connect';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ListItem from './ListItem';
 import {Text} from 'react-native-paper';
 
@@ -18,17 +17,20 @@ const LIST_USER_UPDATE_RATE = 15 * 1000;
  */
 const ListScreen = props => {
   const isListLoading = useSelector(rootState => rootState.loading.models.list);
+  const list = useSelector(rootState => rootState.list.list);
+  const dispatch = useDispatch();
+
   let lastUpdate = Date.now();
 
   /**
    * При маунте компонента грузим список и создаем интервал который с LIST_AUTO_UPDATE_RATE обновляет список
    */
   useEffect(() => {
-    props.loadList();
+    dispatch.list.loadList();
 
     const updater = setInterval(() => {
       if (props.navigation.isFocused()) {
-        props.loadList();
+        dispatch.list.loadList();
         lastUpdate = Date.now();
       }
     }, LIST_AUTO_UPDATE_RATE);
@@ -41,7 +43,7 @@ const ListScreen = props => {
    */
   const handleRefresh = () => {
     if (Date.now() - lastUpdate > LIST_USER_UPDATE_RATE) {
-      props.loadList();
+      dispatch.list.loadList();
       lastUpdate = Date.now();
     }
   };
@@ -51,7 +53,7 @@ const ListScreen = props => {
       <FlatList
         keyExtractor={item => item.id}
         style={{flex: 1}}
-        data={props.list.list}
+        data={list}
         refreshing={isListLoading}
         onRefresh={handleRefresh}
         renderItem={({item}) => <ListItem item={item} />}
@@ -66,11 +68,4 @@ const ListScreen = props => {
   );
 };
 
-const mapState = state => ({
-  list: state.list,
-});
-const mapDispatch = dispatch => ({
-  loadList: () => dispatch.list.loadList(),
-});
-
-export default connect(mapState, mapDispatch)(ListScreen);
+export default ListScreen;
