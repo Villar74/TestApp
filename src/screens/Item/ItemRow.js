@@ -26,7 +26,7 @@ const ItemRow = ({title, desc, descLinkable}) => {
         {title}
       </Text>
       <Text style={[styles.sectionDescription]} {...textAddLink}>
-        {desc}
+        {desc || 'Данные отсутсвуют'}
       </Text>
     </View>
   );
