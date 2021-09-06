@@ -34,29 +34,26 @@ const ItemScreen = ({route, navigation}) => {
           <Image source={{uri: item.actor.avatar_url}} style={styles.image} />
         </TouchableOpacity>
       </View>
-      <ItemRow title={'Repo: '} desc={item?.repo.name} />
-      <ItemRow title={'Make: '} desc={item.type} />
-      <ItemRow title={'Date: '} desc={item.created_at} />
+      <ItemRow title={'Repo'} desc={item?.repo.name} />
+      <ItemRow title={'Make'} desc={item.type} />
+      <ItemRow title={'Date'} desc={item.created_at} />
       {
         // Не обрабатываю случай когда может быть несколько ивентов
         // В продакшен коде этот кусок я бы вынес в отдельные компоненты которые какой нибудь логикой
         // например с помощью switch выбирались как отрисоваться
         item.type === 'PushEvent' ? (
           <View>
-            <ItemRow title={'Push ID: '} desc={item.payload.push_id} />
+            <ItemRow title={'Push ID'} desc={item.payload.push_id} />
             <ItemRow
-              title={'Author: '}
+              title={'Author'}
               desc={item.payload.commits[0]?.author?.name}
             />
             <ItemRow
-              title={'Author Email: '}
+              title={'Author Email'}
               desc={item.payload.commits[0]?.author?.email}
               descLinkable
             />
-            <ItemRow
-              title={'Message: '}
-              desc={item.payload.commits[0].message}
-            />
+            <ItemRow title={'Message'} desc={item.payload.commits[0].message} />
           </View>
         ) : (
           <View />

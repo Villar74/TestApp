@@ -23,10 +23,10 @@ const ItemRow = ({title, desc, descLinkable}) => {
   return (
     <View style={styles.sectionContainer}>
       <Text style={[styles.sectionTitle, {color: colors.primary}]}>
-        {title}
+        {title + ': '}
       </Text>
       <Text style={[styles.sectionDescription]} {...textAddLink}>
-        {desc || 'Данные отсутсвуют'}
+        {desc || 'No ' + title + ' data'}
       </Text>
     </View>
   );
