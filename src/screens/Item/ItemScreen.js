@@ -3,6 +3,7 @@ import React, {useCallback} from 'react';
 import {Image, Linking, TouchableOpacity, View, StyleSheet} from 'react-native';
 import {Title} from 'react-native-paper';
 import ItemRow from './ItemRow';
+import {useTheme} from 'react-native-paper';
 
 /**
  * Экран просмотра Итема. Добавлен функционал нажатия на иконку и имя юзера чтобы перейти на более детальную информацию
@@ -14,6 +15,7 @@ import ItemRow from './ItemRow';
  */
 const ItemScreen = ({route, navigation}) => {
   const {item} = route.params;
+  const {colors} = useTheme();
 
   const userUrl = item.actor.url;
 
@@ -22,7 +24,7 @@ const ItemScreen = ({route, navigation}) => {
   }, [userUrl]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: colors.background}]}>
       <View style={styles.headContainer}>
         <TouchableOpacity onPress={() => Linking.openURL(item.repo.url)}>
           <Title>{item?.actor.display_login}</Title>

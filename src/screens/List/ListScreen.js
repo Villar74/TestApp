@@ -4,6 +4,7 @@ import {FlatList, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import ListItem from './ListItem';
 import {Text} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 
 const LIST_AUTO_UPDATE_RATE = 60 * 1000;
 const LIST_USER_UPDATE_RATE = 15 * 1000;
@@ -19,6 +20,7 @@ const ListScreen = props => {
   const isListLoading = useSelector(rootState => rootState.loading.models.list);
   const list = useSelector(rootState => rootState.list.list);
   const dispatch = useDispatch();
+  const {colors} = useTheme();
 
   let lastUpdate = Date.now();
 
@@ -49,7 +51,8 @@ const ListScreen = props => {
   };
 
   return (
-    <View style={{flex: 1, paddingVertical: 8}}>
+    <View
+      style={{flex: 1, paddingVertical: 8, backgroundColor: colors.background}}>
       <FlatList
         keyExtractor={item => item.id}
         style={{flex: 1}}

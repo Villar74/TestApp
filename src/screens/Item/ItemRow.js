@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Linking, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 
 /**
  * Компонент отрисовки пункта на экране Итема
@@ -13,13 +14,19 @@ import {Text} from 'react-native-paper';
  * @constructor
  */
 const ItemRow = ({title, desc, descLinkable}) => {
+  const {colors} = useTheme();
+
   const textAddLink = descLinkable
     ? {onPress: () => Linking.openURL(desc)}
     : {};
   return (
     <View style={styles.sectionContainer}>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      <Text style={styles.sectionDescription} {...textAddLink}>
+      <Text style={[styles.sectionTitle, {color: colors.primary}]}>
+        {title}
+      </Text>
+      <Text
+        style={[styles.sectionDescription, {color: colors.text}]}
+        {...textAddLink}>
         {desc}
       </Text>
     </View>

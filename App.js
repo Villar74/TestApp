@@ -9,6 +9,7 @@
 import React from 'react';
 import type {Node} from 'react';
 import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 
 import {Provider} from 'react-redux';
 import {store} from './src/store';
@@ -25,10 +26,12 @@ const App: () => Node = () => {
   };
   return (
     <Provider store={store}>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <ScreensStack />
-      </SafeAreaView>
+      <PaperProvider>
+        <SafeAreaView style={backgroundStyle}>
+          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+          <ScreensStack />
+        </SafeAreaView>
+      </PaperProvider>
     </Provider>
   );
 };
