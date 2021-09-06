@@ -16,6 +16,7 @@ import {useTheme} from 'react-native-paper';
 const ItemRow = ({title, desc, descLinkable}) => {
   const {colors} = useTheme();
 
+  // добавляем onPress только в случае если надо кликабельный desc
   const textAddLink = descLinkable
     ? {onPress: () => Linking.openURL(desc)}
     : {};
@@ -24,9 +25,7 @@ const ItemRow = ({title, desc, descLinkable}) => {
       <Text style={[styles.sectionTitle, {color: colors.primary}]}>
         {title}
       </Text>
-      <Text
-        style={[styles.sectionDescription, {color: colors.text}]}
-        {...textAddLink}>
+      <Text style={[styles.sectionDescription]} {...textAddLink}>
         {desc}
       </Text>
     </View>
